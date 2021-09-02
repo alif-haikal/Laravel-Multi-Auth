@@ -12,8 +12,7 @@ Route::post('register', 'AuthController@register');
 
 //admin
 Route::group(['middleware' => 'is_admin'], function () {
-    Route::get('Users', 'HomeController@adminHome')->name('admin.users');
-    Route::get('logout', 'AuthController@logout')->name('logout');
+    Route::get('users', 'UserController@index')->name('admin.users');
 });
 
 

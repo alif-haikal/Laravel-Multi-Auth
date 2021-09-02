@@ -10,15 +10,16 @@
     </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.jqueryui.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
 
     <style>
         html,
         body {
             background-color: #fff;
             color: #636b6f;
-            /*font-family: 'Nobel-Book', 'Nunito', sans-serif;*/
             padding-top: 2.5rem;
         }
 
@@ -53,7 +54,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-white fixed-top bg-white">
             <div class="container">
-                    <a class="navbar-brand" href="{{ route('home') }}">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="/images/navbar-logo.png" width="95" height="70" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -77,7 +78,9 @@
 
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ route('home') }}">Home</a></li>
-                                <li><a class="dropdown-item" href="/account/edit">Account</a></li>
+                                @if(Auth::user()->is_admin == 1)
+                                <li><a class="dropdown-item" href="{{ route('admin.users') }}">Users</a></li>
+                                @endif
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -94,12 +97,13 @@
         </nav>
         @yield('content')
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+
+    <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    {{-- <script src="https://cdn.datatables.net/1.11.0/js/dataTables.jqueryui.min.js"></script> --}}
+    {{-- <script src="https://cdn.datatables.net/fixedcolumns/3.3.3/js/dataTables.fixedColumns.min.js"></script> --}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
 </body>
 
 </html>
