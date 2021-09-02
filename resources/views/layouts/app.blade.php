@@ -53,7 +53,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-white fixed-top bg-white">
             <div class="container">
-                    <a class="navbar-brand" href="{{ Auth::user()->is_admin == 1 ? route('admin.home') : route('user.home') }}">
+                    <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="/images/navbar-logo.png" width="95" height="70" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -67,7 +67,7 @@
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ Auth::user()->is_admin == 1 ? route('admin.home') : route('user.home') }}"><i class="fa fa-home"></i></a>
+                            <a class="nav-link" href="{{ route('home') }}"><i class="fa fa-home"></i></a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -76,7 +76,7 @@
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ Auth::user()->is_admin == 1 ? route('admin.home') : route('user.home') }}">Home</a></li>
+                                <li><a class="dropdown-item" href="{{ route('home') }}">Home</a></li>
                                 <li><a class="dropdown-item" href="/account/edit">Account</a></li>
                                 <li>
                                     <hr class="dropdown-divider">

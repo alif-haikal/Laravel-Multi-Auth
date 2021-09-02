@@ -17,7 +17,7 @@ class AuthController extends Controller
     {
         if (Auth::check()) {
             //Login Success
-            return redirect()->route('user.home');
+            return redirect()->route('home');
         }
         return view('login');
     }
@@ -49,21 +49,8 @@ class AuthController extends Controller
 
         Auth::attempt($data);
 
-        if (Auth::check()) {
-            switch (Auth::user()->status) {
-                case "1":
-                    if (Auth::user()->is_admin == "1") {
-                        return redirect()->route('admin.home');
-                    } else {
-                        return redirect()->route('user.home');
-                    }
-                    break;
-
-                default:
-                Auth::logout(); // menghapus session yang aktif
-                Session::flash('error', 'Account Inactive');
-                return redirect()->route('login');
-            }
+        if (Auth::check() && Auth::user()->status == 1) {
+            return redirect()->route('home');
         } else {
             //Login Fail
             Session::flash('error', 'Email or password incorrect');
