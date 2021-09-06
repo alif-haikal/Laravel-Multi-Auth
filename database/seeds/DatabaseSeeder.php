@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-
+use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -10,7 +11,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         DB::table('users')->insert([
             'name' => 'Admin',
@@ -31,6 +32,18 @@ class DatabaseSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        for($i = 0 ; $i < 10000 ; $i++){
+            DB::table('users')->insert([
+                'name' => $faker->name,
+                'email' =>  $faker->unique()->safeEmail,
+                'password' => Hash::make('Admin@123'),
+                'status' => '1',
+                'is_admin' => '0',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
     }
 }
