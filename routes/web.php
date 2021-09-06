@@ -12,7 +12,7 @@ Route::post('register', 'AuthController@register');
 
 //admin
 Route::group(['middleware' => 'is_admin'], function () {
-    Route::get('users', 'UserController@index')->name('admin.users');
+    Route::resource('users', 'UserController');
 });
 
 

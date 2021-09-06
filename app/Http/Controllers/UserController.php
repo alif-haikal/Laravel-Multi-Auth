@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\UserRepository;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-
 class UserController extends Controller
 {
     public function __construct(UserRepository $userRepo)
@@ -32,6 +29,21 @@ class UserController extends Controller
         }
 
         return view('admin.users.index');
+    }
+
+    public function show($id)
+    {
+        $user = $this->userRepository->find($id);
+
+        return view('admin.users.show')->with('user', $user);
+    }
+
+    public function edit(Request $request)
+    {
+        dd($request->all());
+        // $user = $this->userRepository->find($id);
+
+        // return view('admin.users.show')->with('user', $user);
     }
 
 }

@@ -51,6 +51,8 @@
 </head>
 
 <body>
+    <div id="baseAjaxModal"></div>
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-white fixed-top bg-white">
             <div class="container">
@@ -79,7 +81,7 @@
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ route('home') }}">Home</a></li>
                                 @if(Auth::user()->is_admin == 1)
-                                <li><a class="dropdown-item" href="{{ route('admin.users') }}">Users</a></li>
+                                <li><a class="dropdown-item" href="{{ route('users.index') }}">Users</a></li>
                                 @endif
                                 <li>
                                     <hr class="dropdown-divider">
@@ -99,11 +101,16 @@
     </div>
 
     <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
-    {{-- <script src="https://cdn.datatables.net/1.11.0/js/dataTables.jqueryui.min.js"></script> --}}
-    {{-- <script src="https://cdn.datatables.net/fixedcolumns/3.3.3/js/dataTables.fixedColumns.min.js"></script> --}}
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+    <script>
+        getModalContent = (elem) => {
+            $.get(elem.dataset.action, function(response) {
+                $("#baseAjaxModal").html(response);
+                $(baseAjaxModalContent).modal("show");
+            });
+        }
+    </script>
 </body>
 
 </html>

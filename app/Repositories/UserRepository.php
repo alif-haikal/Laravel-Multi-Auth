@@ -5,28 +5,27 @@ namespace App\Repositories;
 use Prettus\Repository\Eloquent\BaseRepository;
 use App\Entities\User;
 use Illuminate\Pagination\Paginator;
-
 /**
- * Class UserRepositoryEloquent.
+ * Class UserRepository
+ * @package App\Repositories
+ * @version April 10, 2019, 3:42 am +08
  *
- * @package namespace App\Repositories;
- */
+ * @method User find($id, $columns = ['*'])
+ * @method User find($id, $columns = ['*'])
+ * @method User first($columns = ['*'])
+*/
 class UserRepository extends BaseRepository
 {
     /**
-	 * @var array
-	 */
+     * @var array
+     */
 	protected $fieldSearchable = [
         'id',
         'name',
 		'email',
+        'status',
 	];
 
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
     public function model()
     {
         return User::class;
@@ -39,14 +38,13 @@ class UserRepository extends BaseRepository
 		});
 
 		$model = $this;
-
 		if (!empty($input['search']['value'])) {
 			foreach ($this->fieldSearchable as $column) {
 				$model = $model->orWhere($column, 'LIKE' , '%'.$input['search']['value'].'%');
 			}
 		}
 
-		return $model->paginate($input['length']);
+		return $model->orderBy($this->fieldSearchable[$input['order'][0]['column']] ,$input['order'][0]['dir'] )->paginate($input['length']);
     }
 
 }
