@@ -17,9 +17,9 @@ class UserRepository extends BaseRepository
 	 * @var array
 	 */
 	protected $fieldSearchable = [
+        'id',
         'name',
 		'email',
-		'created_at',
 	];
 
     /**
@@ -42,7 +42,7 @@ class UserRepository extends BaseRepository
 
 		if (!empty($input['search']['value'])) {
 			foreach ($this->fieldSearchable as $column) {
-				$model = $model->whereLike($column, $input['search']['value']);
+				$model = $model->orWhere($column, 'LIKE' , '%'.$input['search']['value'].'%');
 			}
 		}
 

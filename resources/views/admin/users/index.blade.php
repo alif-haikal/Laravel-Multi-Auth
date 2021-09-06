@@ -11,6 +11,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +31,7 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
+                    {data: 'email', name: 'email'},
 
                 ]
             });
