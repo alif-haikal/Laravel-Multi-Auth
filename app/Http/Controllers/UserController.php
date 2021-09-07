@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\UserRepository;
+use App\Traits\ResponseHandler;
+use Exception;
 use Illuminate\Http\Request;
 class UserController extends Controller
 {
+    use ResponseHandler;
+
+    private $userRepository;
+
     public function __construct(UserRepository $userRepo)
     {
         $this->userRepository = $userRepo;
@@ -31,6 +37,7 @@ class UserController extends Controller
         return view('admin.users.index');
     }
 
+    //TODO:RESOURCES->GET
     public function show($id)
     {
         $user = $this->userRepository->find($id);
@@ -38,12 +45,24 @@ class UserController extends Controller
         return view('admin.users.show')->with('user', $user);
     }
 
-    public function edit(Request $request)
+    public function edit($id)
     {
-        dd($request->all());
-        // $user = $this->userRepository->find($id);
+        $user = $this->userRepository->find($id);
+        return view('admin.users.edit')->with('user', $user);
+    }
 
-        // return view('admin.users.show')->with('user', $user);
+    //TODO:RESOURCES->PUT
+    public function update($id , Request $request)
+    {
+        try {
+            $input = $request->all();
+            $user = $this->userRepository->updateUser($input , $id );
+            return $this->successResponse('Successfully Update Data');
+
+        } catch (\Throwable $th) {
+			throw new Exception($th->getMessage(), $th->getCode());
+        }
+
     }
 
 }

@@ -3,8 +3,10 @@
 namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
-use App\Entities\User;
+use App\User;
+use Exception;
 use Illuminate\Pagination\Paginator;
+use DB;
 /**
  * Class UserRepository
  * @package App\Repositories
@@ -45,6 +47,21 @@ class UserRepository extends BaseRepository
 		}
 
 		return $model->orderBy($this->fieldSearchable[$input['order'][0]['column']] ,$input['order'][0]['dir'] )->paginate($input['length']);
+    }
+
+    public function updateUser($input , $id)
+    {
+        DB::beginTransaction();
+		try {
+			if (!$this->update($input, $id)) {
+				throw new Exception('Error Processing Request', 405);
+			}
+			DB::commit();
+		} catch (\Throwable $th) {
+			DB::rollBack();
+			throw new Exception($th->getMessage(), $th->getCode());
+		}
+
     }
 
 }

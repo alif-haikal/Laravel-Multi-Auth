@@ -15,7 +15,7 @@ class AuthController extends Controller
 {
     public function showFormLogin()
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->status == '1') {
             //Login Success
             return redirect()->route('home');
         }
@@ -48,11 +48,12 @@ class AuthController extends Controller
         ];
 
         Auth::attempt($data);
-
-        if (Auth::check() && Auth::user()->status == 1) {
+        if (Auth::check() && Auth::user()->status == '1') {
             return redirect()->route('home');
-        } else {
-            //Login Fail
+        } else if(Auth::user()->status == '0'){
+            Session::flash('error', 'Your Account Has Been Disable. Please Contact Admin');
+            return redirect()->route('login');
+        }else {
             Session::flash('error', 'Email or password incorrect');
             return redirect()->route('login');
         }
@@ -106,7 +107,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Auth::logout(); // menghapus session yang aktif
+        Auth::logout(); // delete session yang aktif
         return redirect()->route('login');
     }
 }

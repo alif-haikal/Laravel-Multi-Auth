@@ -54,6 +54,8 @@
                         let editUrl = "{{ route('users.edit', 'data-id') }}";
 
                         showUrl = showUrl.replace('data-id', data);
+                        editUrl = editUrl.replace('data-id', data);
+
 
                         return '<div class="form-group">' +
                         '<div class="btn-group" role="group">' +

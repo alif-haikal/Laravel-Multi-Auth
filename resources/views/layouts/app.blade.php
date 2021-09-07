@@ -12,7 +12,8 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.jqueryui.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
     <style>
@@ -102,13 +103,64 @@
 
     <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         getModalContent = (elem) => {
             $.get(elem.dataset.action, function(response) {
                 $("#baseAjaxModal").html(response);
                 $(baseAjaxModalContent).modal("show");
             });
+        }
+
+        confirmAction = (elem) => {
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: 'Data will be updated!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#fc0330',
+                cancelButtonColor: '#999',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            })
+        }
+
+        processInit = (elem, datatable, data) => {
+
+            Swal.fire({
+                title: 'Data is being processed. Please wait...',
+                didOpen: function() {
+                    Swal.showLoading();
+                    $.ajax({
+                        url: elem.dataset.action,
+                        data: data,
+                        type: 'PUT',
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: response.message,
+                                    showConfirmButton: true,
+                                }).then(() => {
+
+                                    $(baseAjaxModalContent).modal("hide");
+                                    datatable.DataTable().ajax.reload()
+                                });
+                            }
+                        },
+                        fail: (response) => {
+                            Swal.fire(
+                                'Opps!',
+                                'An error occurred, we are sorry for inconvenience.',
+                                'danger'
+                            )
+                            failCallback()
+                        }
+                    })
+                    Swal.hideLoading();
+                }
+            })
         }
     </script>
 </body>
