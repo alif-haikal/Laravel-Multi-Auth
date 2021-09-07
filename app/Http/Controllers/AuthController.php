@@ -48,9 +48,11 @@ class AuthController extends Controller
         ];
 
         Auth::attempt($data);
+
         if (Auth::check() && Auth::user()->status == '1') {
             return redirect()->route('home');
         } else if(Auth::user()->status == '0'){
+            Auth::logout();
             Session::flash('error', 'Your Account Has Been Disable. Please Contact Admin');
             return redirect()->route('login');
         }else {
