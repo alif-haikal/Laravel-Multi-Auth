@@ -51,7 +51,7 @@ class AuthController extends Controller
 
         if (Auth::check() && Auth::user()->status == '1') {
             return redirect()->route('home');
-        } else if(Auth::user()->status == '0'){
+        } else if(Auth::check() && Auth::user()->status == '0'){
             Auth::logout();
             Session::flash('error', 'Your Account Has Been Disable. Please Contact Admin');
             return redirect()->route('login');
@@ -96,6 +96,8 @@ class AuthController extends Controller
         $user->email = strtolower($request->email);
         $user->password = Hash::make($request->password);
         $user->email_verified_at = \Carbon\Carbon::now();
+        $user->status = 1;
+        $user->is_admin = 0;
         $simpan = $user->save();
 
         if ($simpan) {

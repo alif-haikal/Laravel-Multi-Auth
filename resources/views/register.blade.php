@@ -32,7 +32,7 @@
                     @endif
                     <div class="form-group">
                         <label for=""><strong>Full Name</strong></label>
-                        <input type="text" name="name" class="form-control" placeholder="Nama Lengkap">
+                        <input type="text" name="name" class="form-control" placeholder="Name">
                     </div>
                     <div class="form-group">
                         <label for=""><strong>Email</strong></label>
