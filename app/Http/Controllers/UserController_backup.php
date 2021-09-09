@@ -6,13 +6,6 @@ use App\Repositories\UserRepository;
 use App\Traits\ResponseHandler;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Support\Facades\Auth;
-
-
 class UserController extends Controller
 {
     use ResponseHandler;
@@ -71,6 +64,5 @@ class UserController extends Controller
         }
 
     }
-
 
 }

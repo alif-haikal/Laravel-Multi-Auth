@@ -7,9 +7,32 @@
                 <h3>Dashboard</h3>
             </div>
             <div class="card-body">
-                <h5>Welcome to User Dashboard, <strong>{{ Auth::user()->name }}</strong></h5>
+                {{-- <h5>Welcome to User Dashboard, <strong>{{ Auth::user()->name }}</strong></h5> --}}
+                <div class="form-group">
+                    <label for="txt-token">Token: Please save token somewhere</label>
+                    <textarea class="form-control" id="txt-token" rows="4"></textarea>
+                </div>
+                <div class="form-group text-right">
+                  <button type="button" class="btn btn-dark" onclick="generateToken()">Generate Token</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    generateToken = () => {
+        $.ajax({
+        url: "/api/generate_token",
+        type:"POST",
+        data:{
+          email: "{{Auth::user()->email}}",
+          password: "Admin@123",
+        },
+        success:function(response){
+          console.log(response);
+
+        },
+       });
+    }
+</script>
 @endsection

@@ -4,34 +4,37 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-class User extends Authenticatable
+use Tymon\JWTAuth\Contracts\JWTSubject;
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    public $table = 'users';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'status',
+    ];
 
-	public $fillable = [
-		'name',
-		'email',
-		'status',
-	];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
-	public $casts = [
-		'created_at' => 'datetime',
-		'email' => 'string',
-		'id' => 'integer',
-		'name' => 'string',
-		'remember_token' => 'string',
-		'status' => 'integer',
-		'updated_at' => 'datetime',
-	];
-
-	protected $hidden = [
-		'password', 'remember_token'
-	];
-
-	public static $rules = [
-		//
-	];
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

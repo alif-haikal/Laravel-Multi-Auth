@@ -20,4 +20,5 @@ Route::group(['middleware' => 'is_admin'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('logout', 'AuthController@logout')->name('logout');
+    Route::post('generate_token', 'JwtController@authenticate')->name('generate_token');
 });
