@@ -24,29 +24,51 @@ class JwtController extends Controller
 
     public function authenticate()
     {
-        $existing_token = Auth::user()->jwt_token;
+        //if status 1 then create
         try {
+            switch (Auth::user()->status) {
+                case '1':
+                    if(!$token = JWTAuth::fromUser(Auth::user())){
+                        return response()->json(['error' => 'invalid_credentials'], 400);
+                    }
+                    break;
 
-            if($existing_token){
-                JWTAuth::setToken($existing_token)->invalidate();
-                $token = JWTAuth::fromUser(Auth::user());
-            } else  {
-                $token = JWTAuth::fromUser(Auth::user());
-                if(!$token){
-                    return response()->json(['error' => 'invalid_credentials'], 400);
-                }
-
-                $user = User::find(Auth::user()->id);
-                $user->jwt_token = $token;
-                $user->save();
+                default:
+                    return response()->json(['error' => 'account_status_inactive'], 400);
+                    break;
             }
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-
         return response()->json(compact('token'));
-
     }
+
+    //this function specific 1 user 1 key
+    // public function authenticate()
+    // {
+    //     $existing_token = Auth::user()->jwt_token;
+    //     try {
+
+    //         if($existing_token){
+    //             JWTAuth::setToken($existing_token)->invalidate();
+    //             $token = JWTAuth::fromUser(Auth::user());
+    //         } else  {
+    //             $token = JWTAuth::fromUser(Auth::user());
+    //             if(!$token){
+    //                 return response()->json(['error' => 'invalid_credentials'], 400);
+    //             }
+
+    //             $user = User::find(Auth::user()->id);
+    //             $user->jwt_token = $token;
+    //             $user->save();
+    //         }
+    //     } catch (JWTException $e) {
+    //         return response()->json(['error' => 'could_not_create_token'], 500);
+    //     }
+
+    //     return response()->json(compact('token'));
+
+    // }
 
 
     // public function authenticate(Request $request)
