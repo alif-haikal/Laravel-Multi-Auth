@@ -13,7 +13,7 @@
                     <textarea class="form-control" id="txt-token" rows="4"></textarea>
                 </div>
                 <div class="form-group text-right">
-                  <button type="button" class="btn btn-dark" onclick="generateToken()">Generate Token</button>
+                    <button type="button" class="btn btn-dark" onclick="generateToken()">Generate Token</button>
                 </div>
             </div>
         </div>
@@ -26,7 +26,13 @@
         type:"GET",
         success:function(response){
           $('#txt-token').html(response.token)
-        },
+        },error: function (response) {
+            Swal.fire(
+                'Opps!',
+                response.responseJSON.error,
+                'danger'
+            )
+        }
        });
     }
 </script>
