@@ -15,8 +15,10 @@ class AuthController extends Controller
 {
     public function showFormLogin()
     {
-        if (Auth::check() && Auth::user()->status == '1') {
-            //Login Success
+        // if (Auth::check() && Auth::user()->status == '1') {
+        //     return redirect()->route('home');
+        // }
+        if (Auth::check()) {
             return redirect()->route('home');
         }
         return view('login');
@@ -49,13 +51,19 @@ class AuthController extends Controller
 
         Auth::attempt($data);
 
-        if (Auth::check() && Auth::user()->status == '1') {
+        // if (Auth::check() && Auth::user()->status == '1') {
+        //     return redirect()->route('home');
+        // } else if(Auth::check() && Auth::user()->status == '0'){
+        //     Auth::logout();
+        //     Session::flash('error', 'Your Account Has Been Disable. Please Contact Admin');
+        //     return redirect()->route('login');
+        // }else {
+        //     Session::flash('error', 'Email or password incorrect');
+        //     return redirect()->route('login');
+        // }
+        if (Auth::check()) {
             return redirect()->route('home');
-        } else if(Auth::check() && Auth::user()->status == '0'){
-            Auth::logout();
-            Session::flash('error', 'Your Account Has Been Disable. Please Contact Admin');
-            return redirect()->route('login');
-        }else {
+        } else {
             Session::flash('error', 'Email or password incorrect');
             return redirect()->route('login');
         }
