@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 use JWTAuth;
 use Exception;
@@ -20,6 +21,15 @@ class JwtMiddleware extends BaseMiddleware
     public function handle($request, Closure $next)
     {
         try {
+            $payload = JWTAuth::parseToken()->getPayload();
+            $status = User::findOrFail($payload->get('uuid'))->status;
+
+            if($status == '1'){
+                JWTAuth::parseToken()->authenticate();
+            } else {
+                return response()->json(['status' => 'Token is Invalid. User Inactive']);
+            }
+
             $user = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){

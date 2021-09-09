@@ -28,7 +28,12 @@ class JwtController extends Controller
         try {
             switch (Auth::user()->status) {
                 case '1':
-                    if(!$token = JWTAuth::fromUser(Auth::user())){
+                    $payloadable = [
+                        'uuid' => Auth::user()->id,
+                    ];
+
+                    $token = JWTAuth::claims($payloadable)->fromUser(Auth::user() , $payloadable);
+                    if(!$token){
                         return response()->json(['error' => 'invalid_credentials'], 400);
                     }
                     break;
