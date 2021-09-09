@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Admin@123'),
             'status' => '1',
             'is_admin' => '1',
-            'jwt_token' => null,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -30,7 +29,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Admin@123'),
             'status' => '1',
             'is_admin' => '0',
-            'jwt_token' => null,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -42,7 +40,6 @@ class DatabaseSeeder extends Seeder
                 'password' => Hash::make('Admin@123'),
                 'status' => '1',
                 'is_admin' => '0',
-                'jwt_token' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

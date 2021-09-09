@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('status');
             $table->string('is_admin');
-            $table->longText('jwt_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
