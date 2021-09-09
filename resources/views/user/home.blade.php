@@ -22,15 +22,10 @@
 <script type="text/javascript">
     generateToken = () => {
         $.ajax({
-        url: "/api/generate_token",
-        type:"POST",
-        data:{
-          email: "{{Auth::user()->email}}",
-          password: "Admin@123",
-        },
+        url: "{{route('generate_token')}}",
+        type:"GET",
         success:function(response){
-          console.log(response);
-
+          $('#txt-token').html(response.token)
         },
        });
     }

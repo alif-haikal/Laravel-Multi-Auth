@@ -15,7 +15,7 @@ class DataController extends Controller
 
     public function closed()
     {
-        $data = "Only authorized users can see this";
+        $data = "success masuk ke user yg authorized";
         return response()->json(compact('data'),200);
     }
 }

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Admin@123'),
             'status' => '1',
             'is_admin' => '1',
+            'jwt_token' => null,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -29,17 +30,19 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Admin@123'),
             'status' => '1',
             'is_admin' => '0',
+            'jwt_token' => null,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        for($i = 0 ; $i < 10000 ; $i++){
+        for($i = 0 ; $i < 100 ; $i++){
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'email' =>  $faker->unique()->safeEmail,
                 'password' => Hash::make('Admin@123'),
                 'status' => '1',
                 'is_admin' => '0',
+                'jwt_token' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
