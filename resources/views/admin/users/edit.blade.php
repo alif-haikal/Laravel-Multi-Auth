@@ -30,8 +30,8 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Statu</label>
                         <select class="form-control" name="status">
-                            <option value="0" selected="{{($user->status == '0') ? true : false}}">InActive</option>
-                            <option value="1" selected="{{($user->status == '1') ? true : false}}">Active</option>
+                            <option value="0" {{($user->status == 0) ? 'selected' : '' }}>InActive</option>
+                            <option value="1" {{($user->status == 1) ? 'selected' : ''}}>Active</option>
                         </select>
 
                     </div>
