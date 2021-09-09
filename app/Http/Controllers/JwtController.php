@@ -21,6 +21,11 @@ class JwtController extends Controller
         $this->middleware('auth');
     }
 
+    /*
+    curl -X GET \
+    -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvZ2VuZXJhdGVfdG9rZW4iLCJpYXQiOjE2MzExNzg1MzEsImV4cCI6MTYzMTE4MjEzMSwibmJmIjoxNjMxMTc4NTMxLCJqdGkiOiJNdE5GNHozSHBER21BUUxOIiwic3ViIjoyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIiwidXVpZCI6Mn0.-nUo73KqQ_M-9xwBUnP-_bo2mngPNi1s4cvdbkcRPgI" \
+    127.0.0.1:8000/api/closed
+    */
 
     public function authenticate()
     {
