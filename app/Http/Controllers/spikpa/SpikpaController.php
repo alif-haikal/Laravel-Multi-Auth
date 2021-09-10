@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use JWTAuth;
+use Illuminate\Pagination\Paginator;
 
 class SpikpaController extends Controller
 {
@@ -16,21 +17,27 @@ class SpikpaController extends Controller
      */
 
     private $payload;
-
+    private $paginate =10;
     public function __construct()
     {
         $this->payload = JWTAuth::parseToken()->getPayload();
 
     }
-    public function index()
-    {
 
+    // 127.0.0.1:8000/api/get_user?page=2&per_page=30
+    public function index(Request $request)
+    {
+        $currentPage = $request->page;
+        $this->paginate = $request->per_page;
+
+        Paginator::currentPageResolver(function () use ($currentPage) {
+            return $currentPage;
+        });
 
         $status = $this->payload->get('status');
-        // $result = ;
+        $result = User::where('status' , $status)->paginate($this->paginate);
 
-
-        return response()->json(User::where('status' , $status)->get(),200);
+        return response()->json($result,200);
     }
 
     /**
