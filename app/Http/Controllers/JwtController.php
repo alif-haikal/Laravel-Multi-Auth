@@ -35,6 +35,7 @@ class JwtController extends Controller
                 case '1':
                     $payloadable = [
                         'uuid' => Auth::user()->id,
+                        'status' => Auth::user()->status
                     ];
 
                     $token = JWTAuth::claims($payloadable)->fromUser(Auth::user() , $payloadable);

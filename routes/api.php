@@ -20,4 +20,6 @@ Route::get('open', 'DataController@open');
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'UserController@getAuthenticatedUser');
     Route::get('closed', 'DataController@closed');
+
+    Route::get('get_user', 'spikpa\SpikpaController@index');
 });
