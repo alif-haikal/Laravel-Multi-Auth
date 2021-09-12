@@ -18,6 +18,8 @@ class SpikpaController extends Controller
 
     private $payload;
     private $paginate =10;
+
+    //TODO::Buat DI utk JwtAuth
     public function __construct()
     {
         $this->payload = JWTAuth::parseToken()->getPayload();
