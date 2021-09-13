@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\spikpa;
+namespace App\Http\Controllers\vcs;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PermissionInterface;
@@ -9,7 +9,7 @@ use App\User;
 use JWTAuth;
 use Illuminate\Pagination\Paginator;
 
-class SpikpaController extends Controller
+class VcsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,7 +31,7 @@ class SpikpaController extends Controller
     public function index(Request $request)
     {
         try {
-            if($this->payload->get('spikpa_post') == 'spikpa_post'){
+            if($this->payload->get('vcs_post') == 'vcs_post'){
                 $currentPage = $request->page;
                 $this->paginate = $request->per_page;
 
@@ -49,7 +49,6 @@ class SpikpaController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['error' => 'error processing data'], 500);
         }
-
     }
 
     /**
@@ -61,7 +60,7 @@ class SpikpaController extends Controller
     public function store(Request $request)
     {
         try {
-            if($this->payload->get('spikpa_post') == 'spikpa_post'){
+            if($this->payload->get('vcs_post') == 'vcs_post'){
                 return response()->json("some data success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
@@ -80,7 +79,7 @@ class SpikpaController extends Controller
     public function show($id)
     {
         try {
-            if($this->payload->get('spikpa_get') == 'spikpa_get'){
+            if($this->payload->get('vcs_get') == 'vcs_get'){
                 return response()->json("some data success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
@@ -100,7 +99,7 @@ class SpikpaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if($this->payload->get('spikpa_put') == 'spikpa_put'){
+            if($this->payload->get('vcs_put') == 'vcs_put'){
                 return response()->json("some data success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
@@ -119,7 +118,7 @@ class SpikpaController extends Controller
     public function destroy($id)
     {
         try {
-            if($this->payload->get('spikpa_delete') == 'spikpa_delete'){
+            if($this->payload->get('vcs_delete') == 'vcs_delete'){
                 return response()->json("some data success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);

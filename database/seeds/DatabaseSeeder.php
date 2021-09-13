@@ -20,14 +20,20 @@ class DatabaseSeeder extends Seeder
 
         /*CREATE PERMISSION*/
         $permissions = [//default adalah web..tpi tukar kpd api bcoz usage middleware API
-            ['name' => 'get_spikpa_user' , 'guard_name' => 'api'],
-            ['name' => 'put_spikpa_user', 'guard_name' => 'api'],
-            ['name' => 'post_spikpa_user', 'guard_name' => 'api'],
-            ['name' => 'delete_spikpa_user', 'guard_name' => 'api'],
-            ['name' => 'get_bms_user', 'guard_name' => 'api'],
-            ['name' => 'put_bms_user', 'guard_name' => 'api'],
-            ['name' => 'get_vcs_user', 'guard_name' => 'api'],
-            ['name' => 'delete_vcs_user' , 'guard_name' => 'api']
+            ['name' => 'spikpa_get' , 'guard_name' => 'api'],
+            ['name' => 'spikpa_put', 'guard_name' => 'api'],
+            ['name' => 'spikpa_post', 'guard_name' => 'api'],
+            ['name' => 'spikpa_delete', 'guard_name' => 'api'],
+
+            ['name' => 'bms_get', 'guard_name' => 'api'],
+            ['name' => 'bms_put', 'guard_name' => 'api'],
+            ['name' => 'bms_post', 'guard_name' => 'api'],
+            ['name' => 'bms_delete', 'guard_name' => 'api'],
+
+            ['name' => 'vcs_get', 'guard_name' => 'api'],
+            ['name' => 'vcs_put', 'guard_name' => 'api'],
+            ['name' => 'vcs_post', 'guard_name' => 'api'],
+            ['name' => 'vcs_delete', 'guard_name' => 'api'],
         ];
 
         DB::table('permissions')->insert($permissions);
@@ -110,15 +116,22 @@ class DatabaseSeeder extends Seeder
 
         $admin = User::where('name','Admin')->first();
         $admin->assignRole($roles);
+        $admin->givePermissionTo(Permission::all());
 
         $spikpa = User::where('name','spikpa')->first();
         $spikpa->assignRole($roles->where('name','spikpa'));
+        $spikpa->givePermissionTo(Permission::where('name','LIKE','%spikpa%')->get());
 
         $vcs = User::where('name','vcs')->first();
         $vcs->assignRole($roles->where('name','vcs'));
+        $vcs->givePermissionTo(Permission::where('name','LIKE','%vcs%')->get());
 
         $bms = User::where('name','bms')->first();
         $bms->assignRole($roles->where('name','bms'));
+        $bms->givePermissionTo(Permission::where('name','LIKE','%bms%')->get());
+
+        /*ASSIGN PERMISSON TO USER*/
+
 
     }
 }
