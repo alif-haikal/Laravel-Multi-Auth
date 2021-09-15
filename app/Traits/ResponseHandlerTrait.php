@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait ResponseHandler
+trait ResponseHandlerTrait
 {
   public $internalServerException;
 
@@ -22,4 +22,5 @@ trait ResponseHandler
       'message' => $message,
     ], $code);
   }
+ 
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use JWTAuth;
 use Illuminate\Pagination\Paginator;
+use App\Traits\PermissionHandlerTrait;
 
 class VcsController extends Controller
 {
@@ -18,20 +19,24 @@ class VcsController extends Controller
      */
 
     private $payload;
+    private $permissions;
     private $paginate =10;
+    use PermissionHandlerTrait;
 
     //TODO::Buat DI utk JwtAuth
     public function __construct()
     {
         $this->payload = JWTAuth::parseToken()->getPayload();
+        $this->permissions = JWTAuth::parseToken()->getPayload()->get('permissions');
 
     }
 
-    // 127.0.0.1:8000/api/get_user?page=2&per_page=30
+    // 127.0.0.1:8000/api/vcs?page=2&per_page=10
     public function index(Request $request)
     {
         try {
-            if($this->payload->get('vcs_post') == 'vcs_post'){
+            if($this->validatePermission('vcs get' , $this->permissions)){
+
                 $currentPage = $request->page;
                 $this->paginate = $request->per_page;
 
@@ -43,7 +48,7 @@ class VcsController extends Controller
                 $result = User::where('status' , $status)->paginate($this->paginate);
 
                 return response()->json($result,200);
-            } else {
+            }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
         } catch (\Throwable $th) {
@@ -60,9 +65,9 @@ class VcsController extends Controller
     public function store(Request $request)
     {
         try {
-            if($this->payload->get('vcs_post') == 'vcs_post'){
-                return response()->json("some data success",200);
-            } else {
+            if($this->validatePermission('vcs post' , $this->permissions)){
+                return response()->json("vcs post has permission success",200);
+            }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
         } catch (\Throwable $th) {
@@ -79,9 +84,9 @@ class VcsController extends Controller
     public function show($id)
     {
         try {
-            if($this->payload->get('vcs_get') == 'vcs_get'){
-                return response()->json("some data success",200);
-            } else {
+            if($this->validatePermission('vcs get' , $this->permissions)){
+                return response()->json("vcs get has permission success",200);
+            }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
         } catch (\Throwable $th) {
@@ -99,9 +104,9 @@ class VcsController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if($this->payload->get('vcs_put') == 'vcs_put'){
-                return response()->json("some data success",200);
-            } else {
+            if($this->validatePermission('vcs put' , $this->permissions)){
+                return response()->json("vcs put has permission success",200);
+            }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
         } catch (\Throwable $th) {
@@ -118,9 +123,9 @@ class VcsController extends Controller
     public function destroy($id)
     {
         try {
-            if($this->payload->get('vcs_delete') == 'vcs_delete'){
-                return response()->json("some data success",200);
-            } else {
+            if($this->validatePermission('vcs delete' , $this->permissions)){
+                return response()->json("vcs delete has permission success",200);
+            }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
         } catch (\Throwable $th) {

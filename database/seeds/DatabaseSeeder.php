@@ -20,20 +20,20 @@ class DatabaseSeeder extends Seeder
 
         /*CREATE PERMISSION*/
         $permissions = [//default adalah web..tpi tukar kpd api bcoz usage middleware API
-            ['name' => 'spikpa_get' , 'guard_name' => 'api'],
-            ['name' => 'spikpa_put', 'guard_name' => 'api'],
-            ['name' => 'spikpa_post', 'guard_name' => 'api'],
-            ['name' => 'spikpa_delete', 'guard_name' => 'api'],
+            ['name' => 'spikpa get' , 'guard_name' => 'api'],
+            ['name' => 'spikpa put', 'guard_name' => 'api'],
+            ['name' => 'spikpa post', 'guard_name' => 'api'],
+            ['name' => 'spikpa delete', 'guard_name' => 'api'],
 
-            ['name' => 'bms_get', 'guard_name' => 'api'],
-            ['name' => 'bms_put', 'guard_name' => 'api'],
-            ['name' => 'bms_post', 'guard_name' => 'api'],
-            ['name' => 'bms_delete', 'guard_name' => 'api'],
+            ['name' => 'bms get', 'guard_name' => 'api'],
+            ['name' => 'bms put', 'guard_name' => 'api'],
+            ['name' => 'bms post', 'guard_name' => 'api'],
+            ['name' => 'bms delete', 'guard_name' => 'api'],
 
-            ['name' => 'vcs_get', 'guard_name' => 'api'],
-            ['name' => 'vcs_put', 'guard_name' => 'api'],
-            ['name' => 'vcs_post', 'guard_name' => 'api'],
-            ['name' => 'vcs_delete', 'guard_name' => 'api'],
+            ['name' => 'vcs get', 'guard_name' => 'api'],
+            ['name' => 'vcs put', 'guard_name' => 'api'],
+            ['name' => 'vcs post', 'guard_name' => 'api'],
+            ['name' => 'vcs delete', 'guard_name' => 'api'],
         ];
 
         DB::table('permissions')->insert($permissions);
@@ -98,17 +98,17 @@ class DatabaseSeeder extends Seeder
         ];
 
 
-        for($i = 0 ; $i < 10 ; $i++){
-            $users[] = [
-                'name' => $faker->name,
-                'email' =>  $faker->unique()->safeEmail,
-                'password' => Hash::make('Admin@123'),
-                'status' => '1',
-                'is_admin' => '0',
-                'created_at' => now(),
-                'updated_at' => now()
-            ];
-        }
+        // for($i = 0 ; $i < 10 ; $i++){
+        //     $users[] = [
+        //         'name' => $faker->name,
+        //         'email' =>  $faker->unique()->safeEmail,
+        //         'password' => Hash::make('Admin@123'),
+        //         'status' => '1',
+        //         'is_admin' => '0',
+        //         'created_at' => now(),
+        //         'updated_at' => now()
+        //     ];
+        // }
 
         /*ASSIGN ROLE TO USER */
         DB::table('users')->insert($users);

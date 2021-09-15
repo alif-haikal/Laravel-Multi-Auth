@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\UserRepository;
-use App\Traits\ResponseHandler;
+use App\Traits\ResponseHandlerTrait;
+use App\User;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
-use App\User;
+
 
 class JwtController extends Controller
 {
-    use ResponseHandler;
+    use ResponseHandlerTrait;
 
     private $userRepository;
 
@@ -29,13 +30,14 @@ class JwtController extends Controller
 
     public function authenticate()
     {
-        //if status 1 then create
         try {
             switch (Auth::user()->status) {
                 case '1':
                     $payloadable = [
                         'uuid' => Auth::user()->id,
-                        'status' => Auth::user()->status
+                        'status' => Auth::user()->status,
+                        'role' => Auth::user()->roles->pluck('name')->toArray(),
+                        'permissions' => Auth::user()->permissions->pluck('name')->toArray()
                     ];
 
                     $token = JWTAuth::claims($payloadable)->fromUser(Auth::user() , $payloadable);

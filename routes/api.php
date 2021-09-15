@@ -21,5 +21,22 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'UserController@getAuthenticatedUser');
     Route::get('closed', 'DataController@closed');
 
-    Route::get('get_user', 'spikpa\SpikpaController@index');
+
+ 
+/*
+REFERENCE
+
+    Verb          Path                         Action  Route Name       Status
+    GET           /spikpa                      index   spikpa.index     (used)
+    GET           /spikpa/create               create  spikpa.create
+    POST          /spikpa                      store   spikpa.store     (used)
+    GET           /spikpa/{user}               show    spikpa.show      (used)
+    GET           /spikpa/{user}/edit          edit    spikpa.edit
+    PUT|PATCH     /spikpa/{user}               update  spikpa.update    (used)
+    DELETE        /spikpa/{user}               destroy spikpa.destroy   (used)
+*/
+    Route::resource('spikpa', 'spikpa\SpikpaController');
+    Route::resource('vcs', 'vcs\VcsController');
+    Route::resource('bms', 'bms\BmsController');
+
 });

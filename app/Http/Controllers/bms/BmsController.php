@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\spikpa;
+namespace App\Http\Controllers\bms;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PermissionInterface;
@@ -10,7 +10,7 @@ use JWTAuth;
 use Illuminate\Pagination\Paginator;
 use App\Traits\PermissionHandlerTrait;
 
-class SpikpaController extends Controller
+class BmsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,30 +31,29 @@ class SpikpaController extends Controller
 
     }
 
-    // 127.0.0.1:8000/api/spikpa?page=2&per_page=10
+    // 127.0.0.1:8000/api/bms?page=2&per_page=10
     public function index(Request $request)
     {
         try {
-            if($this->validatePermission('spikpa get' , $this->permissions)){
+            if($this->validatePermission('bms get' , $this->permissions)){
+                $this->validatePermission('bms get' , $this->permissions);
                 $currentPage = $request->page;
                 $this->paginate = $request->per_page;
-    
+
                 Paginator::currentPageResolver(function () use ($currentPage) {
                     return $currentPage;
                 });
-    
+
                 $status = $this->payload->get('status');
                 $result = User::where('status' , $status)->paginate($this->paginate);
-    
+
                 return response()->json($result,200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
-            
         } catch (\Throwable $th) {
             return response()->json(['error' => 'error processing data'], 500);
         }
-
     }
 
     /**
@@ -66,9 +65,9 @@ class SpikpaController extends Controller
     public function store(Request $request)
     {
         try {
-            if($this->validatePermission('spikpa post' , $this->permissions)){
-                return response()->json("spikpa post has permission success",200);
-            } else {
+            if($this->validatePermission('bms post' , $this->permissions)){
+                return response()->json("bms post has permission success",200);
+            }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
         } catch (\Throwable $th) {
@@ -85,12 +84,11 @@ class SpikpaController extends Controller
     public function show($id)
     {
         try {
-            if($this->validatePermission('spikpa get' , $this->permissions)){
-                return response()->json("spikpa get has permission success",200);
-            } else {
+            if($this->validatePermission('bms get' , $this->permissions)){
+                return response()->json("bms get has permission success",200);
+            }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
-
         } catch (\Throwable $th) {
             return response()->json(['error' => 'error processing data'], 500);
         }
@@ -106,10 +104,9 @@ class SpikpaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if($this->validatePermission('spikpa put' , $this->permissions)){
-
-                return response()->json("spikpa put has permission success",200);
-            } else {
+            if($this->validatePermission('bms put' , $this->permissions)){
+                return response()->json("bms put has permission success",200);
+            }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
         } catch (\Throwable $th) {
@@ -126,15 +123,13 @@ class SpikpaController extends Controller
     public function destroy($id)
     {
         try {
-            if($this->validatePermission('spikpa put' , $this->permissions)){
-                return response()->json("spikpa delete has permission success",200);
-            } else {
+            if($this->validatePermission('bms delete' , $this->permissions)){
+                return response()->json("bms delete has permission success",200);
+            }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
         } catch (\Throwable $th) {
             return response()->json(['error' => 'error processing data'], 500);
         }
     }
-
-    
 }
