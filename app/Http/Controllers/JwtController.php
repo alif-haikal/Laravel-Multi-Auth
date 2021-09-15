@@ -37,7 +37,7 @@ class JwtController extends Controller
                         'uuid' => Auth::user()->id,
                         'status' => Auth::user()->status,
                         'role' => Auth::user()->roles->pluck('name')->toArray(),
-                        'permissions' => Auth::user()->permissions->pluck('name')->toArray()
+                        'scopes' => Auth::user()->permissions->pluck('name')->toArray()
                     ];
 
                     $token = JWTAuth::claims($payloadable)->fromUser(Auth::user() , $payloadable);

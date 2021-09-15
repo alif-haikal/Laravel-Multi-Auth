@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\vcs;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\PermissionInterface;
+use App\Http\Controllers\ScopeInterface;
 use Illuminate\Http\Request;
 use App\User;
 use JWTAuth;
 use Illuminate\Pagination\Paginator;
-use App\Traits\PermissionHandlerTrait;
+use App\Traits\ScopeHandlerTrait;
 
 class VcsController extends Controller
 {
@@ -19,15 +19,15 @@ class VcsController extends Controller
      */
 
     private $payload;
-    private $permissions;
+    private $Scopes;
     private $paginate =10;
-    use PermissionHandlerTrait;
+    use ScopeHandlerTrait;
 
     //TODO::Buat DI utk JwtAuth
     public function __construct()
     {
         $this->payload = JWTAuth::parseToken()->getPayload();
-        $this->permissions = JWTAuth::parseToken()->getPayload()->get('permissions');
+        $this->Scopes = JWTAuth::parseToken()->getPayload()->get('scopes');
 
     }
 
@@ -35,7 +35,7 @@ class VcsController extends Controller
     public function index(Request $request)
     {
         try {
-            if($this->validatePermission('vcs get' , $this->permissions)){
+            if($this->validateScope('vcs get' , $this->Scopes)){
 
                 $currentPage = $request->page;
                 $this->paginate = $request->per_page;
@@ -65,8 +65,8 @@ class VcsController extends Controller
     public function store(Request $request)
     {
         try {
-            if($this->validatePermission('vcs post' , $this->permissions)){
-                return response()->json("vcs post has permission success",200);
+            if($this->validateScope('vcs post' , $this->Scopes)){
+                return response()->json("vcs post has Scope success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -84,8 +84,8 @@ class VcsController extends Controller
     public function show($id)
     {
         try {
-            if($this->validatePermission('vcs get' , $this->permissions)){
-                return response()->json("vcs get has permission success",200);
+            if($this->validateScope('vcs get' , $this->Scopes)){
+                return response()->json("vcs get has Scope success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -104,8 +104,8 @@ class VcsController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if($this->validatePermission('vcs put' , $this->permissions)){
-                return response()->json("vcs put has permission success",200);
+            if($this->validateScope('vcs put' , $this->Scopes)){
+                return response()->json("vcs put has Scope success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -123,8 +123,8 @@ class VcsController extends Controller
     public function destroy($id)
     {
         try {
-            if($this->validatePermission('vcs delete' , $this->permissions)){
-                return response()->json("vcs delete has permission success",200);
+            if($this->validateScope('vcs delete' , $this->Scopes)){
+                return response()->json("vcs delete has Scope success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }

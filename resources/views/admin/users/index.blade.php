@@ -52,15 +52,18 @@
                     "render": function(data, type, full, meta) {
                         let showUrl = "{{ route('users.show', 'data-id') }}";
                         let editUrl = "{{ route('users.edit', 'data-id') }}";
+                        let scopeUrl = "{{ route('users.scopes', 'data-id') }}";
 
                         showUrl = showUrl.replace('data-id', data);
                         editUrl = editUrl.replace('data-id', data);
+                        scopeUrl = scopeUrl.replace('data-id', data);
 
 
                         return '<div class="form-group">' +
                         '<div class="btn-group" role="group">' +
                         '<button type="button" data-action="' + showUrl + '" class="btn btn-icon btn-outline-info" onClick="getModalContent(this)"><i class="fa fa-search">Show</i></button>' +
                         '<button type="button" data-action="' + editUrl + '" class="btn btn-icon btn-outline-warning" onClick="getModalContent(this)"><i class="fa fa-search">Edit</i></button>' +
+                        '<button type="button" data-action="' + scopeUrl + '" class="btn btn-icon btn-outline-danger" onClick="getModalContent(this)"><i class="fa fa-search">Scopes</i></button>' +
                         '</div>' +
                         '</div>'
                     }

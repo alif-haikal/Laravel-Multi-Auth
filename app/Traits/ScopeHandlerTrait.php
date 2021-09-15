@@ -2,10 +2,10 @@
 
 namespace App\Traits;
 
-trait PermissionHandlerTrait
+trait ScopeHandlerTrait
 {
-    public function validatePermission($permissionName , $payload){
-        if(in_array($permissionName , $payload)){
+    public function validateScope($scopeName , $payload){
+        if(in_array($scopeName , $payload)){
             return true;
         } else {
             return false;

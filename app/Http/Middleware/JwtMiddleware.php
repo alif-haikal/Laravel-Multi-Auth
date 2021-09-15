@@ -21,7 +21,6 @@ class JwtMiddleware extends BaseMiddleware
     public function handle($request, Closure $next)
     {
         try {
-
             $payload = JWTAuth::parseToken()->getPayload();
             $status = User::findOrFail($payload->get('uuid'))->status;
 

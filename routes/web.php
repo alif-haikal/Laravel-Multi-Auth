@@ -13,6 +13,7 @@ Route::post('register', 'AuthController@register');
 //admin
 Route::group(['middleware' => 'is_admin'], function () {
     Route::resource('users', 'UserController');
+    Route::get('/scopes/{id}', 'UserController@scopes')->name('users.scopes');
 });
 
 

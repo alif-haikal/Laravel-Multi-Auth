@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\UserRepository;
 use App\Traits\ResponseHandlerTrait;
+use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
-
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -72,5 +73,17 @@ class UserController extends Controller
 
     }
 
+    //TODO:RESOURCES->PUT
+    public function scopes($id)
+    {
+        try {
+            $userScopes = $this->userRepository->find($id)->permissions->pluck('name')->toArray();
+            $scopes = Permission::all()->pluck('name');
+            
+            return view('admin.users.scopes')->with(compact('userScopes' , 'scopes'));
+        } catch (\Throwable $th) {
+            throw new Exception($th->getMessage(), $th->getCode());
+        }
 
+    }
 }
