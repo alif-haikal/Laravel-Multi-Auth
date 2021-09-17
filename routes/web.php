@@ -14,6 +14,8 @@ Route::post('register', 'AuthController@register');
 Route::group(['middleware' => 'is_admin'], function () {
     Route::resource('users', 'UserController');
     Route::get('/scopes/{id}', 'UserController@scopes')->name('users.scopes');
+    Route::get('/scopesUpdate/{id}', 'UserController@scopes')->name('users.scopes.update');
+    Route::get('/getScopeByRole', 'UserController@getScopeByRole')->name('users.scopes.by.role');
 });
 
 

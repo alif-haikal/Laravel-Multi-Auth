@@ -7,12 +7,14 @@ use App\Traits\ResponseHandlerTrait;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -79,11 +81,27 @@ class UserController extends Controller
         try {
             $userScopes = $this->userRepository->find($id)->permissions->pluck('name')->toArray();
             $scopes = Permission::all()->pluck('name');
-            
-            return view('admin.users.scopes')->with(compact('userScopes' , 'scopes'));
+            $userRole = $this->userRepository->find($id)->roles->pluck('name')->toArray();
+            $roles = Role::all()->pluck('name');
+
+            return view('admin.users.scopes')->with(compact('id', 'userRole' , 'userScopes' , 'scopes' , 'roles'));
         } catch (\Throwable $th) {
             throw new Exception($th->getMessage(), $th->getCode());
         }
 
     }
+
+    public function getScopeByRole(Request $request)
+    {
+        try {
+            $permissions = Role::findByName($request->role)->permissions->pluck('name')->toArray();
+
+             return new Response(['permissions' => $permissions], 200);
+        } catch (\Throwable $th) {
+            return new Response([ 'message' => $th->getMessage() ], $th->getCode()); 
+
+        }
+
+    }
+    
 }

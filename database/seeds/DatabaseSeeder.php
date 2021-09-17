@@ -20,20 +20,20 @@ class DatabaseSeeder extends Seeder
 
         /*CREATE PERMISSION*/
         $permissions = [//default adalah web..tpi tukar kpd api bcoz usage middleware API
-            ['name' => 'spikpa get' , 'guard_name' => 'api'],
-            ['name' => 'spikpa put', 'guard_name' => 'api'],
-            ['name' => 'spikpa post', 'guard_name' => 'api'],
-            ['name' => 'spikpa delete', 'guard_name' => 'api'],
+            ['name' => 'spikpa-get' , 'guard_name' => 'api'],
+            ['name' => 'spikpa-put', 'guard_name' => 'api'],
+            ['name' => 'spikpa-post', 'guard_name' => 'api'],
+            ['name' => 'spikpa-delete', 'guard_name' => 'api'],
 
-            ['name' => 'bms get', 'guard_name' => 'api'],
-            ['name' => 'bms put', 'guard_name' => 'api'],
-            ['name' => 'bms post', 'guard_name' => 'api'],
-            ['name' => 'bms delete', 'guard_name' => 'api'],
+            ['name' => 'bms-get', 'guard_name' => 'api'],
+            ['name' => 'bms-put', 'guard_name' => 'api'],
+            ['name' => 'bms-post', 'guard_name' => 'api'],
+            ['name' => 'bms-delete', 'guard_name' => 'api'],
 
-            ['name' => 'vcs get', 'guard_name' => 'api'],
-            ['name' => 'vcs put', 'guard_name' => 'api'],
-            ['name' => 'vcs post', 'guard_name' => 'api'],
-            ['name' => 'vcs delete', 'guard_name' => 'api'],
+            ['name' => 'vcs-get', 'guard_name' => 'api'],
+            ['name' => 'vcs-put', 'guard_name' => 'api'],
+            ['name' => 'vcs-post', 'guard_name' => 'api'],
+            ['name' => 'vcs-delete', 'guard_name' => 'api'],
         ];
 
         DB::table('permissions')->insert($permissions);
