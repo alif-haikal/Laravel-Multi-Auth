@@ -91,6 +91,27 @@ class UserController extends Controller
 
     }
 
+    public function scopesUpdate(Request $request , $id)
+    {
+        try {
+            $user = User::find($id);
+
+            
+            //revoke and reassign role to user
+            $user->syncRoles([$request->input("roles")]);
+            
+            //revoke and reassign permission to user
+            $newPermissions = array_keys(array_diff_key($request->all(), array_flip(['roles','_token'])));
+            $user->syncPermissions($newPermissions);
+
+            return new Response(['message' => 'success update'], 200);
+
+        } catch (\Throwable $th) {
+            return new Response([ 'message' => $th->getMessage() ], $th->getCode()); 
+        }
+
+    }
+
     public function getScopeByRole(Request $request)
     {
         try {

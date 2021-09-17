@@ -46,24 +46,29 @@
     btnUpdate = (elem) => {
         confirmAction(elem).then((result) => {
             let data = $('form').serialize();
-            console.log(data);
-            // if (result.value) {
-            //     let datatable = $('#userDatatable')
-            //     processInit(elem, datatable, data)
-            // } else {
-            //     Swal.fire(
-            //         'Canceled',
-            //         'Process has been canceled',
-            //         'info'
-            //     )
-            // }
+            $.ajax({
+                url: elem.dataset.action,
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    if(response.message){
+                        $(baseAjaxModalContent).modal("hide");
+                    }
+                },
+                fail: (response) => {
+                    Swal.fire(
+                        'Opps!',
+                        'An error occurred, we are sorry for inconvenience.',
+                        'danger'
+                    )
+                }
+            })
         })
     }
     
     $('select').on('change', function(e) {
         
         $("Form :input").prop("disabled", true);
-
         $.ajax({
             url: "{{ route('users.scopes.by.role') }}",
             type: 'GET',
@@ -71,13 +76,9 @@
                 "role":e.currentTarget.selectedOptions[0].value
             },
             success: function(response) {
-                $('input:checkbox').removeAttr('checked');
-                $('#spikpa-get').prop('checked',true);
+                $('input:checkbox').prop('checked', false);
                 $.each(response.permissions, function(key,value) {
-                    console.log($('#'+value));
-                    //continue part nk assign value
-                    // $('#'+value).attr('checked','checked');
-
+                    $('#'+value).prop('checked',true);
                 }); 
             },
             fail: (response) => {
@@ -86,7 +87,6 @@
                     'An error occurred, we are sorry for inconvenience.',
                     'danger'
                 )
-                failCallback()
             }
         })
         $("Form :input").prop("disabled", false);
