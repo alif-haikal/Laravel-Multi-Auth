@@ -27,10 +27,9 @@ class JwtMiddleware extends BaseMiddleware
             if($status == '1'){
                 JWTAuth::parseToken()->authenticate();
             } else {
-                return response()->json(['status' => 'Token is Invalid. User Inactive']);
+                throw new \Exception('Token is Invalid. User Inactive' , 401);
             }
 
-            $user = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
                 return response()->json(['status' => 'Token is Invalid']);

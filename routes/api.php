@@ -18,10 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('open', 'DataController@open');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
-    Route::get('user', 'UserController@getAuthenticatedUser');
     Route::get('closed', 'DataController@closed');
-
-
  
 /*
 REFERENCE
