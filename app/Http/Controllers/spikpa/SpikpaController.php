@@ -35,7 +35,7 @@ class SpikpaController extends Controller
     public function index(Request $request)
     {
         try {
-            if($this->validateScope('spikpa get' , $this->scopes)){
+            if($this->validateScope('spikpa-get' , $this->scopes)){
                 $currentPage = $request->page;
                 $this->paginate = $request->per_page;
     
@@ -67,8 +67,8 @@ class SpikpaController extends Controller
     public function store(Request $request)
     {
         try {
-            if($this->validateScope('spikpa post' , $this->scopes)){
-                return response()->json("spikpa post has permission success",200);
+            if($this->validateScope('spikpa-post' , $this->scopes)){
+                return response()->json("spikpa-post has permission success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -86,8 +86,8 @@ class SpikpaController extends Controller
     public function show($id)
     {
         try {
-            if($this->validateScope('spikpa get' , $this->scopes)){
-                return response()->json("spikpa get has permission success",200);
+            if($this->validateScope('spikpa-get' , $this->scopes)){
+                return response()->json("spikpa-get has permission success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -107,9 +107,9 @@ class SpikpaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if($this->validateScope('spikpa put' , $this->scopes)){
+            if($this->validateScope('spikpa-put' , $this->scopes)){
 
-                return response()->json("spikpa put has permission success",200);
+                return response()->json("spikpa-put has permission success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -127,8 +127,8 @@ class SpikpaController extends Controller
     public function destroy($id)
     {
         try {
-            if($this->validateScope('spikpa put' , $this->scopes)){
-                return response()->json("spikpa delete has permission success",200);
+            if($this->validateScope('spikpa-put' , $this->scopes)){
+                return response()->json("spikpa-delete has permission success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }

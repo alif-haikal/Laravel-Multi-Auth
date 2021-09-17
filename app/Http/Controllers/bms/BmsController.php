@@ -35,8 +35,8 @@ class BmsController extends Controller
     public function index(Request $request)
     {
         try {
-            if($this->validateScope('bms get' , $this->scopes)){
-                $this->validateScope('bms get' , $this->scopes);
+            if($this->validateScope('bms-get' , $this->scopes)){
+                $this->validateScope('bms-get' , $this->scopes);
                 $currentPage = $request->page;
                 $this->paginate = $request->per_page;
 
@@ -65,8 +65,8 @@ class BmsController extends Controller
     public function store(Request $request)
     {
         try {
-            if($this->validateScope('bms post' , $this->scopes)){
-                return response()->json("bms post has permission success",200);
+            if($this->validateScope('bms-post' , $this->scopes)){
+                return response()->json("bms-post has permission success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -84,8 +84,8 @@ class BmsController extends Controller
     public function show($id)
     {
         try {
-            if($this->validateScope('bms get' , $this->scopes)){
-                return response()->json("bms get has permission success",200);
+            if($this->validateScope('bms-get' , $this->scopes)){
+                return response()->json("bms-get has permission success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -104,8 +104,8 @@ class BmsController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if($this->validateScope('bms put' , $this->scopes)){
-                return response()->json("bms put has permission success",200);
+            if($this->validateScope('bms-put' , $this->scopes)){
+                return response()->json("bms-put has permission success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -123,8 +123,8 @@ class BmsController extends Controller
     public function destroy($id)
     {
         try {
-            if($this->validateScope('bms delete' , $this->scopes)){
-                return response()->json("bms delete has permission success",200);
+            if($this->validateScope('bms-delete' , $this->scopes)){
+                return response()->json("bms-delete has permission success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }

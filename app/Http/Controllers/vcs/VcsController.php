@@ -35,7 +35,7 @@ class VcsController extends Controller
     public function index(Request $request)
     {
         try {
-            if($this->validateScope('vcs get' , $this->Scopes)){
+            if($this->validateScope('vcs-get' , $this->Scopes)){
 
                 $currentPage = $request->page;
                 $this->paginate = $request->per_page;
@@ -65,8 +65,8 @@ class VcsController extends Controller
     public function store(Request $request)
     {
         try {
-            if($this->validateScope('vcs post' , $this->Scopes)){
-                return response()->json("vcs post has Scope success",200);
+            if($this->validateScope('vcs-post' , $this->Scopes)){
+                return response()->json("vcs-post has Scope success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -84,8 +84,8 @@ class VcsController extends Controller
     public function show($id)
     {
         try {
-            if($this->validateScope('vcs get' , $this->Scopes)){
-                return response()->json("vcs get has Scope success",200);
+            if($this->validateScope('vcs-get' , $this->Scopes)){
+                return response()->json("vcs-get has Scope success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -104,8 +104,8 @@ class VcsController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if($this->validateScope('vcs put' , $this->Scopes)){
-                return response()->json("vcs put has Scope success",200);
+            if($this->validateScope('vcs-put' , $this->Scopes)){
+                return response()->json("vcs-put has Scope success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
@@ -123,8 +123,8 @@ class VcsController extends Controller
     public function destroy($id)
     {
         try {
-            if($this->validateScope('vcs delete' , $this->Scopes)){
-                return response()->json("vcs delete has Scope success",200);
+            if($this->validateScope('vcs-delete' , $this->Scopes)){
+                return response()->json("vcs-delete has Scope success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
