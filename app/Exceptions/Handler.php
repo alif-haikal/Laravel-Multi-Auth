@@ -52,10 +52,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if($exception instanceof TokenExpiredException) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Token expired.'
-            ], 422);
+            return response()->json(['message' => 'Token expired.'], 422);
         }
 
         return parent::render($request, $exception);
