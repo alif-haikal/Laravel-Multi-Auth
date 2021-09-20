@@ -32,7 +32,7 @@ class VcsController extends Controller
     // 127.0.0.1:8000/api/vcs?page=2&per_page=10
     public function index(Request $request)
     {
-        // try {
+        try {
             if($this->validateScope('vcs-get' , $request->user()->getScopes())){
 
                 $currentPage = $request->page;
@@ -42,14 +42,11 @@ class VcsController extends Controller
                     return $currentPage;
                 });
 
-                $status = $request->user()->getPayload()->get('status');
-                // $result = User::where('status' , $status)->paginate($this->paginate);
-
-                // $users = DB::connection('mysql2')->select(...);
+                // $status = $request->user()->getPayload()->get('status');
                 
-                $result = DB::connection('mysql')->table('providers as p')
+                $result = DB::connection('mysql_vac_db')->table('providers as p')
                     ->select('p.*')
-                    ->whereRaw('p.provider_status_code > :status_code', [
+                    ->whereRaw('p.provider_status_code = :status_code', [
                         'status_code' => 6,
                     ])
                 ->paginate($this->paginate);
@@ -58,9 +55,9 @@ class VcsController extends Controller
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
             }
-        // } catch (\Throwable $th) {
-        //     return response()->json(['error' => 'error processing data'], 500);
-        // }
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'error processing data'], 500);
+        }
     }
 
     /**

@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::post('register', 'UserController@register');
-Route::get('open', 'DataController@open');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
-    Route::get('closed', 'DataController@closed');
  
 /*
 REFERENCE
@@ -32,8 +29,10 @@ REFERENCE
     PUT|PATCH     /spikpa/{user}               update  spikpa.update    (used)
     DELETE        /spikpa/{user}               destroy spikpa.destroy   (used)
 */
+    // Route::resource('spikpa', 'spikpa\SpikpaController')->middleware('log.route');
+    // Route::resource('vcs', 'vcs\VcsController')->middleware('log.route');
+    // Route::resource('bms', 'bms\BmsController')->middleware('log.route');
     Route::resource('spikpa', 'spikpa\SpikpaController');
     Route::resource('vcs', 'vcs\VcsController');
     Route::resource('bms', 'bms\BmsController');
-
 });

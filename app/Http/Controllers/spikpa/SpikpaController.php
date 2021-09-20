@@ -9,6 +9,7 @@ use App\User;
 use JWTAuth;
 use Illuminate\Pagination\Paginator;
 use App\Traits\ScopeHandlerTrait;
+use Illuminate\Support\Facades\DB;
 
 class SpikpaController extends Controller
 {
@@ -17,22 +18,20 @@ class SpikpaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    private $db;
     private $paginate =10;
     use ScopeHandlerTrait;
 
     //TODO::Buat DI utk JwtAuth
     public function __construct()
     {
-        
-
+        $this->db  = DB::connection('sqlsrv');
     }
 
     // 127.0.0.1:8000/api/spikpa?page=2&per_page=10
     public function index(Request $request)
     {
         try {
-
             if($this->validateScope('spikpa-get' , $request->user()->getScopes())){
 
                 $currentPage = $request->page;
@@ -41,9 +40,13 @@ class SpikpaController extends Controller
                 Paginator::currentPageResolver(function () use ($currentPage) {
                     return $currentPage;
                 });
-    
-                $status = $request->user()->getPayload()->get('status');
-                $result = User::where('status' , $status)->paginate($this->paginate);
+                
+                $result = $this->db->table('users as u')
+                    ->select('u.*')
+                    ->whereRaw('u.id > :id', [
+                        'id' => 1,
+                    ])
+                ->paginate($this->paginate);
     
                 return response()->json($result,200);
             } else {
