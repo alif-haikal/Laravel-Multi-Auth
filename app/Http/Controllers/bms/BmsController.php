@@ -18,16 +18,12 @@ class BmsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    private $payload;
-    private $scopes;
     private $paginate =10;
     use ScopeHandlerTrait;
 
     //TODO::Buat DI utk JwtAuth
     public function __construct()
     {
-        $this->payload = JWTAuth::parseToken()->getPayload();
-        $this->scopes = JWTAuth::parseToken()->getPayload()->get('scopes');
 
     }
 
@@ -35,8 +31,7 @@ class BmsController extends Controller
     public function index(Request $request)
     {
         try {
-            if($this->validateScope('bms-get' , $this->scopes)){
-                $this->validateScope('bms-get' , $this->scopes);
+            if($this->validateScope('bms-get' , $request->user()->getScope())){
                 $currentPage = $request->page;
                 $this->paginate = $request->per_page;
 
@@ -44,7 +39,7 @@ class BmsController extends Controller
                     return $currentPage;
                 });
 
-                $status = $this->payload->get('status');
+                $status = $request->user()->getPermission()->get('status');
                 $result = User::where('status' , $status)->paginate($this->paginate);
 
                 return response()->json($result,200);
@@ -65,7 +60,7 @@ class BmsController extends Controller
     public function store(Request $request)
     {
         try {
-            if($this->validateScope('bms-post' , $this->scopes)){
+            if($this->validateScope('bms-post' , $request->user()->getScope())){
                 return response()->json("bms-post has permission success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
@@ -81,10 +76,10 @@ class BmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request , $id)
     {
         try {
-            if($this->validateScope('bms-get' , $this->scopes)){
+            if($this->validateScope('bms-get' , $request->user()->getScope())){
                 return response()->json("bms-get has permission success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
@@ -104,7 +99,7 @@ class BmsController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if($this->validateScope('bms-put' , $this->scopes)){
+            if($this->validateScope('bms-put' , $request->user()->getScope())){
                 return response()->json("bms-put has permission success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
@@ -120,10 +115,10 @@ class BmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request , $id)
     {
         try {
-            if($this->validateScope('bms-delete' , $this->scopes)){
+            if($this->validateScope('bms-delete' , $request->user()->getScope())){
                 return response()->json("bms-delete has permission success",200);
             }else {
                 return response()->json(['error' => 'unauthorized process'], 401);
