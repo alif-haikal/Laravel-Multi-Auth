@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\AuditTrails;
 use Closure;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class LogRoute
@@ -17,19 +19,14 @@ class LogRoute
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-
-        if (app()->environment('local')) {
-            $log = [
-                // 'URI' => $request->getUri(),
-                // 'METHOD' => $request->getMethod(),
-                // 'REQUEST_BODY' => $request->all(),
-                // 'RESPONSE' => $response->getContent()
-                'detail' => $request->server()
-            ];
-
-            //buat insertion
-            Log::info(json_encode($log));
-        }
+        
+        $log = [
+            'remote_uri' =>  $request->server('REQUEST_URI'),
+            'remote_ip' => $request->server('REMOTE_ADDR'),
+            'log' => json_encode($request->server()),
+        ];
+        
+        AuditTrails::create($log);
 
         return $response;
     }

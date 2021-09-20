@@ -29,10 +29,8 @@ REFERENCE
     PUT|PATCH     /spikpa/{user}               update  spikpa.update    (used)
     DELETE        /spikpa/{user}               destroy spikpa.destroy   (used)
 */
-    // Route::resource('spikpa', 'spikpa\SpikpaController')->middleware('log.route');
-    // Route::resource('vcs', 'vcs\VcsController')->middleware('log.route');
-    // Route::resource('bms', 'bms\BmsController')->middleware('log.route');
-    Route::resource('spikpa', 'spikpa\SpikpaController');
-    Route::resource('vcs', 'vcs\VcsController');
-    Route::resource('bms', 'bms\BmsController');
+    Route::resource('spikpa', 'spikpa\SpikpaController')->middleware('log.route');
+    Route::resource('vcs', 'vcs\VcsController')->middleware('log.route');
+    Route::resource('bms', 'bms\BmsController')->middleware('log.route');
+
 });
