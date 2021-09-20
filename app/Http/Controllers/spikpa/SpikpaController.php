@@ -18,16 +18,13 @@ class SpikpaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    private $payload;
-    private $scopes;
     private $paginate =10;
     use ScopeHandlerTrait;
 
     //TODO::Buat DI utk JwtAuth
     public function __construct()
     {
-        $this->payload = JWTAuth::parseToken()->getPayload();
-        $this->scopes = JWTAuth::parseToken()->getPayload()->get('scopes');
+        
 
     }
 
@@ -35,7 +32,9 @@ class SpikpaController extends Controller
     public function index(Request $request)
     {
         try {
-            if($this->validateScope('spikpa-get' , $this->scopes)){
+
+            if($this->validateScope('spikpa-get' , $request->user()->getScopes())){
+
                 $currentPage = $request->page;
                 $this->paginate = $request->per_page;
     
@@ -43,7 +42,7 @@ class SpikpaController extends Controller
                     return $currentPage;
                 });
     
-                $status = $this->payload->get('status');
+                $status = $request->user()->getPayload()->get('status');
                 $result = User::where('status' , $status)->paginate($this->paginate);
     
                 return response()->json($result,200);
@@ -67,7 +66,7 @@ class SpikpaController extends Controller
     public function store(Request $request)
     {
         try {
-            if($this->validateScope('spikpa-post' , $this->scopes)){
+            if($this->validateScope('spikpa-post' , $request->user()->getScopes())){
                 return response()->json("spikpa-post has permission success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
@@ -83,10 +82,10 @@ class SpikpaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request , $id)
     {
         try {
-            if($this->validateScope('spikpa-get' , $this->scopes)){
+            if($this->validateScope('spikpa-get' , $request->user()->getScopes())){
                 return response()->json("spikpa-get has permission success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
@@ -107,7 +106,7 @@ class SpikpaController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if($this->validateScope('spikpa-put' , $this->scopes)){
+            if($this->validateScope('spikpa-put' , $request->user()->getScopes())){
 
                 return response()->json("spikpa-put has permission success",200);
             } else {
@@ -124,10 +123,10 @@ class SpikpaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request , $id)
     {
         try {
-            if($this->validateScope('spikpa-put' , $this->scopes)){
+            if($this->validateScope('spikpa-put' , $request->user()->getScopes())){
                 return response()->json("spikpa-delete has permission success",200);
             } else {
                 return response()->json(['error' => 'unauthorized process'], 401);
