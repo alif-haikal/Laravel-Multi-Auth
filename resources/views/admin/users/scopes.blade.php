@@ -16,7 +16,11 @@
                         <div class="form-group">
                             <select class="form-control" id="roles" name="roles">
                                 @foreach($roles as $role)
-                                    <option value="{{$role}}"  {{ $role == $userRole[0] ? 'selected' : ''}}>{{$role}}</option>
+                                    @isset($userRole[0]))
+                                        <option value="{{$role}}"  {{ $role == $userRole[0] ? 'selected' : ''}}>{{$role}}</option>
+                                    @else 
+                                        <option value="{{$role}}">{{$role}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
