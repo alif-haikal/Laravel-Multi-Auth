@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
+            'throttle:10,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -65,7 +65,10 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
         'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
-        'log.route' => \App\Http\Middleware\LogRoute::class
+        
+        
+        // 'throttle' => \App\Http\Middleware\ThrottleRequests::class,
+        'log.route' => \App\Http\Middleware\LogRoute::class,
 
     ];
 }

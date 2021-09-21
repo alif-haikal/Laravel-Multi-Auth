@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+/*throttle api limit per minit please refer dkt kernel(middleware group api..tukar kt situ)*/
 Route::group(['middleware' => ['jwt.verify']], function () {
  
 /*
