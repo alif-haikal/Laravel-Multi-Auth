@@ -18,29 +18,29 @@ class WebServiceSeeder extends Seeder
 
         /*CREATE PERMISSION*/
         $permissions = [//default adalah web..tpi tukar kpd api bcoz usage middleware API
-            ['name' => 'spikpa-get' , 'guard_name' => 'api'],
-            ['name' => 'spikpa-put', 'guard_name' => 'api'],
-            ['name' => 'spikpa-post', 'guard_name' => 'api'],
-            ['name' => 'spikpa-delete', 'guard_name' => 'api'],
+            ['name' => 'spikpa-get' , 'guard_name' => 'web'],
+            ['name' => 'spikpa-put', 'guard_name' => 'web'],
+            ['name' => 'spikpa-post', 'guard_name' => 'web'],
+            ['name' => 'spikpa-delete', 'guard_name' => 'web'],
 
-            ['name' => 'bms-get', 'guard_name' => 'api'],
-            ['name' => 'bms-put', 'guard_name' => 'api'],
-            ['name' => 'bms-post', 'guard_name' => 'api'],
-            ['name' => 'bms-delete', 'guard_name' => 'api'],
+            ['name' => 'bms-get', 'guard_name' => 'web'],
+            ['name' => 'bms-put', 'guard_name' => 'web'],
+            ['name' => 'bms-post', 'guard_name' => 'web'],
+            ['name' => 'bms-delete', 'guard_name' => 'web'],
 
-            ['name' => 'vcs-get', 'guard_name' => 'api'],
-            ['name' => 'vcs-put', 'guard_name' => 'api'],
-            ['name' => 'vcs-post', 'guard_name' => 'api'],
-            ['name' => 'vcs-delete', 'guard_name' => 'api'],
+            ['name' => 'vcs-get', 'guard_name' => 'web'],
+            ['name' => 'vcs-put', 'guard_name' => 'web'],
+            ['name' => 'vcs-post', 'guard_name' => 'web'],
+            ['name' => 'vcs-delete', 'guard_name' => 'web'],
         ];
 
         DB::table('permissions')->insert($permissions);
 
         /*CREATE ROLES*/
         $roles = [
-            ['name' => 'spikpa', 'guard_name' => 'api'],
-            ['name' => 'bms', 'guard_name' => 'api'],
-            ['name' => 'vcs' , 'guard_name' => 'api']
+            ['name' => 'spikpa', 'guard_name' => 'web'],
+            ['name' => 'bms', 'guard_name' => 'web'],
+            ['name' => 'vcs' , 'guard_name' => 'web']
         ];
 
         DB::table('roles')->insert($roles);
