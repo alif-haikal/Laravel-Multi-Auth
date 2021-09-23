@@ -86,7 +86,7 @@ class WebServiceSeeder extends Seeder
             [
                 'name' => 'spikpa',
                 'email' =>  'spikpa@user.com',
-                'password' => Hash::make('Admin@123'),
+                'password' => Hash::make('Admi#@123'),
                 'status' => '1',
                 'is_admin' => '0',
                 'created_at' => now(),
