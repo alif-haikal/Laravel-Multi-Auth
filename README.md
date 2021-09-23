@@ -26,7 +26,7 @@ Create those database or get real database
 <ol>
     <li>composer install</li>
     <li>php artisan key:generate</li>
-    <li>Php artisan migrate:fresh --seed
+    <li>php artisan migrate:fresh --seed
         <ol>
             <li>admin@admin.com / Admin#123</li>
             <li>spikpa@user.com / Admin#123</li>
