@@ -34,7 +34,7 @@ Create those database or get real database
             <li>bms@user.com / Admin#123</li>
         </ol> 
     </li>
-    <li>Open Models/Role.php and add "protected $guard_name = 'api';" (Refer Image Below)</li>
+    <li>Open vendor/spatie/laravel-permission/src/Models/Role.php and add "protected $guard_name = 'api';" (Refer Image Below)</li>
 </ol> 
 
 
