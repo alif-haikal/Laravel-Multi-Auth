@@ -59,7 +59,7 @@ class WebServiceSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' =>  'admin@admin.com',
-                'password' => Hash::make('Admin@123'),
+                'password' => Hash::make('Admin#123'),
                 'status' => '1',
                 'is_admin' => '1',
                 'created_at' => now(),
@@ -68,7 +68,7 @@ class WebServiceSeeder extends Seeder
             [
                 'name' => 'vcs',
                 'email' =>  'vcs@user.com',
-                'password' => Hash::make('Admin@123'),
+                'password' => Hash::make('Admin#123'),
                 'status' => '1',
                 'is_admin' => '0',
                 'created_at' => now(),
@@ -77,7 +77,7 @@ class WebServiceSeeder extends Seeder
             [
                 'name' => 'bms',
                 'email' =>  'bms@user.com',
-                'password' => Hash::make('Admin@123'),
+                'password' => Hash::make('Admin#123'),
                 'status' => '1',
                 'is_admin' => '0',
                 'created_at' => now(),
