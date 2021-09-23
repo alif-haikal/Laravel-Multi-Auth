@@ -24,7 +24,7 @@ Create those database or get real database
 
 <h2>STEP TO LIVE UP APPLICATION</h2>
 <ol>
-    <li>Composer Install</li>
+    <li>composer install</li>
     <li>php artisan key:generate</li>
     <li>Php artisan migrate:fresh --seed
         <ol>
