@@ -54,4 +54,5 @@ Create those database or get real database
     <li>Admin add new permission</li>
     <li>Admin add new role</li>
     <li>Admin assign permission to role</li>
+    <li>Swagger documentation API</li>
 </ol> 
