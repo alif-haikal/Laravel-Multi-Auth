@@ -3,8 +3,7 @@
 <h2>Introduction</h2>
 <strong>This project is build to provide data toward third party user using Restful API.</strong>
 
-![image](https://user-images.githubusercontent.com/27876641/135025264-6b5c25f1-8852-4507-a055-459b1d6515cb.png)
-
+![image](https://user-images.githubusercontent.com/27876641/135025435-b33b7c7b-6dcd-43b3-9ccb-7d402edb75c4.png)
 
 <h2>Overall Project</h2>
 <strong>This project concist of 3 database usage.</strong>
