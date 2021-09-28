@@ -1,3 +1,6 @@
+<h2>Introduction</h2>
+<strong>This project is build to provide data toward third party user using Restful API.</strong>
+
 <h2>Overall Project</h2>
 <strong>This project concist of 3 database usage.</strong>
 <ol>
@@ -42,3 +45,9 @@ Create those database or get real database
     
 ![image](https://user-images.githubusercontent.com/27876641/134312913-b0468f9f-727f-452f-ae37-ef051c1dcf49.png)
 
+<h2>Option to enhance the system</h2>
+<ol>
+    <li>Admin add new permission</li>
+    <li>Admin add new role</li>
+    <li>Admin assign permission to role</li>
+</ol> 
